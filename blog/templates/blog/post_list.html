@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="content-box">
+    <h1 class="title">Latest Posts</h1>
+    <div class="inside-content">
+
+        
+        {% for post in post_list %}
+        <div class="post">
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <div class="date">
+                <p>Published on: {{ post.published_date|date:"j-b-y g:i a" }}</p>
+            </div>
+            <a href="{% url 'post_detail' pk=post.pk %}">
+                Comments: {{ post.approve_comment.count }}
+            </a>
+        <p>is not empty</p>
+        {% empty %}
+        <h2>No latest post!</h2>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}
