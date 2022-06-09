@@ -43,13 +43,16 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
     # success url where to go when post is deleted
     success_url = reverse_lazy('post_list') # home page view name, check views.py
 
+
 class DraftListView(ListView,LoginRequiredMixin):
     model = Post
     login_url = '/login/'
-    redirect_field_name = 'blog/post_list.html'
+    #redirect_field_name = 'blog/post_draft_list.html'
+    template_name = 'blog/post_draft_list.html'
+    
 
     def get_queryset(self):
-        return Post.objects.filter(published_date__isnull = True).order_by('create_date')
+        return Post.objects.filter(author=self.request.user).filter(published_date__isnull = True).order_by('create_date')
 
 @login_required    
 def create_post(request):
@@ -62,7 +65,7 @@ def create_post(request):
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
-    return render(request, 'blog/comment_form.html', {'form': form, 'toEdit': False }) # return to comment form page
+    return render(request, 'blog/post_form.html', {'form': form, 'toEdit': False }) # return to comment form page
 
 ############################################################################
 ############################################################################
@@ -121,3 +124,5 @@ def register_request(request):
         form = RegisterForm()
     print(form.errors)
     return render(request, template_name='blog/register_form.html', context={'form':form})
+
+

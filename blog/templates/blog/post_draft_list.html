@@ -1,11 +1,18 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    {% for post in posts %}
-        <div class="post">
-            <p class="date">created: {{ post.create_date|date:'d-m-Y'</p>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{post.text|truncatechars:200}}</p>
-        </div>
+    <h1 class="title">Drafts</h1>
+    <br>
+    {% for post in object_list %}
+            <div class="post">
+                <h1><a class="list-title" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                <p>{{post.text|safe|truncatewords:50}}</p>
+                <a class="btn button" href="{% url 'publishing_post' pk=post.pk %}">Publish</a>
+                <hr>
+    
+    
+    {% empty %}
+        <h3>No drafts to show.</h3>
     {% endfor %}
+
 
 {% endblock %}

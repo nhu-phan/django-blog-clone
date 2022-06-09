@@ -13,11 +13,11 @@
         {{ form.as_p }}
         
         <input type="submit" class="btn btn-primary" value="Login">
-        
+        <a class="btn button" href="{% url 'register' %}">Register</a>
         <input type="hidden" name="next" value="{{next}}">
     </form>
 
-    <a href="{% url 'register' %}">Register</a>
+   
     
 </div>
 

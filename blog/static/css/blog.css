@@ -5,6 +5,32 @@
     
 }
 
+.button{
+  background-color: black;
+  color: white;
+}
+
+.check_circle {
+  color:green;
+}
+
+
+.comment_container {
+  
+  padding: 15px;
+  background: rgb(235, 235, 235);
+  border-radius: 25px;
+  margin-bottom: 20px;
+}
+.cancel_comment {
+  color: red;
+}
+.author {
+  font-family: 'Raleway', sans-serif;
+  font-weight:bolder;
+  color:rgb(79, 118, 152);
+
+}
 .welcomeuser {
   color: white;
   font-family: 'Raleway', sans-serif;
@@ -31,6 +57,23 @@
 .nav li a {
     color: white;
     text-decoration: none;
+}
+
+.list-title {
+  color: black;
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-weight:bolder;
+}
+
+.comment-count {
+  text-decoration: none;
+  color: darkolivegreen;
+  font-style: normal;
+  font-weight: bolder;
+}
+.list-title:hover{
+  color: grey;
 }
 
 .navbar-nav {

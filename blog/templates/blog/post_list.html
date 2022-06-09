@@ -5,16 +5,17 @@
     <div class="inside-content">
 
         
-        {% for post in post_list %}
+        {% for post in object_list %}
         <div class="post">
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <h1><a class="list-title" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
             <div class="date">
                 <p>Published on: {{ post.published_date|date:"j-b-y g:i a" }}</p>
             </div>
-            <a href="{% url 'post_detail' pk=post.pk %}">
+            <p>{{post.text|safe|truncatewords:50}}</p>
+            <a class="comment-count" href="{% url 'post_detail' pk=post.pk %}">
                 Comments: {{ post.approve_comment.count }}
             </a>
-        <p>is not empty</p>
+            <hr>
         {% empty %}
         <h2>No latest post!</h2>
         {% endfor %}

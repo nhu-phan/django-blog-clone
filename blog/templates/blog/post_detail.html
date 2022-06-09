@@ -6,39 +6,47 @@
         {{ post.published_date }}
     </div>
 {% else %}
-    <a class="btn btn-default" href="{% url 'publishing_post' pk=post.pk %}">Publish</a>
 
 {% endif %}
     <h1 class="title-detail">{{ post.title|safe|linebreaksbr }}</h1>
-    <p>Written by {{ post.author }}</p>
+    <hr>
     <p class="detail-content">{{ post.text|safe|linebreaks }}</p>
+    <p class="author">written by {{ post.author }}</p>
+    <hr>
+
     {% if user.is_authenticated %}
-        <a class='btn btn-primary' href="{% url 'post_update' pk=post.pk %}">
+        <a class='btn btn-primary button' href="{% url 'post_update' pk=post.pk %}">
             <span class="material-symbols-outlined">edit</span>
         </a>
-        <a class="btn btn-warning" href="{% url 'post_delete' pk=post.pk %}">
+        <a class="btn btn-warning button" href="{% url 'post_delete' pk=post.pk %}">
             <span class="material-symbols-outlined">delete</span>
         </a>
-    {% endif %}
+        {%  if post.published_date  == None %} 
+        <a class="btn btn-default button" href="{% url 'publishing_post' pk=post.pk %}">Publish</a>
+        {% endif %}
+        <a class="btn btn-primary " href="{% url 'add_comment' pk=post.pk %}">Add Comment</a>
+        {% endif %}
     <hr>
-    <a class="btn btn-primary btn-comment" href="{% url 'add_comment' pk=post.pk %}">Add Comment</a>
+    <h1>Comments</h1>
     <div class="container">
 
         {% for comment in post.comments.all %}
             
             <br>
             {% if user.is_authenticated or comment.approved_comment %}
+            <div class="comment_container">
                 {{ comment.create_date }}
                 {% if not comment.approved_comment %}
-                    <a class='btn btn-primary' href="{% url 'approving_comment' pk=comment.pk %}">
-                        <span class="material-symbols-outlined">check_circle</span>
+                    <a class='btn' href="{% url 'approving_comment' pk=comment.pk %}">
+                        <span class="material-symbols-outlined check_circle">check_circle</span>
                     </a>
-                    <a class="btn btn-default" href="{% url 'removing_comment' pk=comment.pk %}">
-                        <span class="material-symbols-outlined">cancel</span>
+                    <a class="btn" href="{% url 'removing_comment' pk=comment.pk %}">
+                        <span class="material-symbols-outlined cancel_comment">cancel</span>
                     </a>
                 {% endif %}
                 <p> {{ comment.text|safe|linebreaks }}</p>
                 <p> Posted By: {{ comment.author }}</p>
+            </div>
             {% endif %}
             {% empty %}
                     <p>No comments</p>
